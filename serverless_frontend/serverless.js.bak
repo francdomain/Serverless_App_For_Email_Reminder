@@ -1,5 +1,5 @@
 // Updated API endpoint for Remindly
-var API_ENDPOINT = 'https://73matbf7hl.execute-api.us-east-1.amazonaws.com/prod/remindly';
+var API_ENDPOINT = 'api_url';
 
 // Selecting message divs for notifications
 var errorDiv = document.getElementById('error-message');

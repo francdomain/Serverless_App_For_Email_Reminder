@@ -34,6 +34,8 @@ You will receive an email to each address containing a link. Click the link in e
 
 ![](./images/ses.png)
 
+![](./images/ses-mail.png)
+
 # Stage 2a: Create the Lambda Execution Role for Lambda
 
 - Create an IAM role which the email_reminder_lambda will use to interact with other AWS services.
@@ -52,6 +54,8 @@ This is what gives lambda the permissions to interact with those services
 `lambda.tf`
 
 ![](./images/lambda-email.png)
+
+![](./images/email-lmbda.png)
 
 # Stage 2c: Configure the email_reminder_lambda function
 
@@ -82,6 +86,8 @@ __Note__ how the State Machine role gives:
 
 ![](./images/state-machine.png)
 
+![](./images/SM.png)
+
 The state machine starts ... and then waits for a certain time period based on the Timer state. This is controlled by the web frontend. Then the email is used Which sends an email reminder.
 
 The state machine will control the flow through the serverless application.. once stated it will coordinate other AWS services as required.
@@ -91,6 +97,8 @@ The state machine will control the flow through the serverless application.. onc
 `lambda.tf`
 
 ![](./images/api-lambda.png)
+
+![](./images/api-lmbda.png)
 
 This is the lambda function which will support the API Gateway
 
@@ -102,10 +110,7 @@ It's job is to be called by API Gateway when its used by the serverless front en
 
 `api_lambda.py`
 
-![](./images/api-)
-
-
-
+![](./images/api-lambda-py.png)
 
 
 # Stage 4c: Create API
@@ -120,6 +125,7 @@ create the API Gateway, API and Method which the frontend part of the serverless
 
 ![](./images/api-gateway.png)
 
+![](./images/api-gw.png)
 
 # Stage 5a: Create S3 Bucket
 
@@ -133,11 +139,27 @@ create the API Gateway, API and Method which the frontend part of the serverless
 
 - Verify All 4 files are in the Objects area of the bucket.
 
+![](./images/bucket-files.png)
 
+# Stage 6: Create route 53 record and point your domain name to the website endpoint.
 
+![](./images/route53.png)
 
+![](./images/rt53.png)
 
+- Access the website on a browser
 
+![](./images/remindly-ui.png)
 
+- Test the configuration from the UI
 
+1. Timer .. waits 30 seconds
+2. Email invokes the lambda function to send an email
+3. NextState in then moved through, then finally END
+
+![](./images/test-ui.png)
+
+- Check the receiver email address
+
+![](./images/check-email.png)
 
