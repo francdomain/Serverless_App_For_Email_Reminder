@@ -3,7 +3,7 @@ import json
 import decimal
 
 # Updated State Machine ARN for Remindly
-SM_ARN = "__SM_ARN__"  # Replace with the actual ARN for Remindly
+SM_ARN = "__SM_ARN__"  # Replace with the actual state machine ARN for Remindly
 
 sm = boto3.client('stepfunctions')
 

@@ -1,4 +1,4 @@
-# Lambda role
+# Create Lambda Execution Role
 resource "aws_iam_role" "lambda_execution_role" {
   name = "lambda_execution_role"
   assume_role_policy = jsonencode({
@@ -14,6 +14,7 @@ resource "aws_iam_role" "lambda_execution_role" {
     ]
   })
 }
+
 
 resource "aws_iam_policy" "lambda_policy" {
   name = "lambda_custom_policy"
@@ -43,6 +44,7 @@ resource "aws_iam_policy" "lambda_policy" {
   })
 }
 
+# Attach the policy to the role
 resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
   role       = aws_iam_role.lambda_execution_role.name
   policy_arn = aws_iam_policy.lambda_policy.arn

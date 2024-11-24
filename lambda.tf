@@ -5,7 +5,7 @@ data "archive_file" "email_lambda_zip" {
   output_path = "${path.module}/lambda_function.zip"
 }
 
-# Email lambda
+# Create Email lambda
 resource "aws_lambda_function" "email_lambda" {
   filename      = data.archive_file.email_lambda_zip.output_path
   function_name = "email_reminder_lambda"
@@ -20,6 +20,17 @@ resource "aws_lambda_function" "email_lambda" {
   }
 }
 
+# Dynamically replace the state machine arn (SM_ARN) placeholder in api_lambda.py
+resource "null_resource" "update_lambda_script" {
+  depends_on = [aws_sfn_state_machine.sfn_state_machine]
+
+  provisioner "local-exec" {
+    command = <<EOT
+    sed -i.bak "s|__SM_ARN__|${aws_sfn_state_machine.sfn_state_machine.arn}|" ./api_lambda.py
+    EOT
+  }
+}
+
 # Package the API Lambda function
 data "archive_file" "api_lambda_zip" {
   type        = "zip"
@@ -29,7 +40,7 @@ data "archive_file" "api_lambda_zip" {
   depends_on = [null_resource.update_lambda_script]
 }
 
-# API lambda
+# Create API lambda
 resource "aws_lambda_function" "api_lambda" {
   filename      = data.archive_file.api_lambda_zip.output_path
   function_name = "api_lambda"

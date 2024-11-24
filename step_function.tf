@@ -43,14 +43,3 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
     level                  = "ALL"
   }
 }
-
-# Replace the state machine arn placeholder in api_lambda.py
-resource "null_resource" "update_lambda_script" {
-  depends_on = [aws_sfn_state_machine.sfn_state_machine]
-
-  provisioner "local-exec" {
-    command = <<EOT
-    sed -i.bak "s|__SM_ARN__|${aws_sfn_state_machine.sfn_state_machine.arn}|" ./api_lambda.py
-    EOT
-  }
-}
