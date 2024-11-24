@@ -55,13 +55,14 @@ This is what gives lambda the permissions to interact with those services
 
 ![](./images/lambda-email.png)
 
-![](./images/email-lmbda.png)
 
 # Stage 2c: Configure the email_reminder_lambda function
 
 `lambda_function.py`
 
 ![](./images/email-function.png)
+
+![](./images/email-lmbda.png)
 
 This function will send an email to an address it's supplied with (by step functions) and it will be FROM the email address we specify.
 
@@ -98,7 +99,6 @@ The state machine will control the flow through the serverless application.. onc
 
 ![](./images/api-lambda.png)
 
-![](./images/api-lmbda.png)
 
 This is the lambda function which will support the API Gateway
 
@@ -112,6 +112,7 @@ It's job is to be called by API Gateway when its used by the serverless front en
 
 ![](./images/api-lambda-py.png)
 
+![](./images/api-lmbda.png)
 
 # Stage 4c: Create API
 
